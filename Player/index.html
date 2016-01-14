@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="./js/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript">
+            function getApi() {
+                // 多重送信を防ぐため通信完了までボタンをdisableにする
+                var button = $(this);
+                button.attr("disabled", true);
+
+                // 各フィールドから値を取得してJSONデータを作成
+//                var data = {
+//                    userid     :$("#userid").val(),
+//                    keyid      :$("#keyid").val(),
+//                    onetimekey :$("#onetimekey").val(),
+//                    drm_key_id :$("#drm_key_id").val(),
+//                };
+
+                var param = 'userid=' + $("#userid").val();
+                param += '&keyid=' + $("#keyid").val();
+                param += '&onetimekey=' + $("#onetimekey").val();
+                param += '&drm_key_id=' + $("#drm_key_id").val();
+
+                // 通信実行
+                $.ajax({
+                    type:"post",                                                // method = "POST"
+                    //url:"http://localhost:8084/ApiServer/webresources/generic", // POST送信先のURL
+                    //url:"http://api-sv/ApiServer/token.php",                    // POST送信先のURL
+                    url:"http://api-sv:8084/ApiServer/webresources/generic",
+                    data:param,                                  // JSONデータ本体
+                    contentType: 'application/json',                            // リクエストの Content-Type
+                    dataType: "jsonp",                                           // レスポンスをJSONとしてパースする
+                    //jsonpCallback:'tokenData',
+                    success: function(json_data) {                             // 200 OK時
+                        
+                        alert(json_data.returnCd + '\n'
+                            + json_data.tokenInfo + '\n'
+                            + json_data.usageType + '\n'
+                            + json_data.beginDate + '\n'
+                            + json_data.expirationDate + '\n'
+                            + json_data.messageText + '\n'
+                        );
+                    },
+                    error: function(json_data) {         // HTTPエラー時
+                        alert(json_data);
+                        //alert("Server Error. Pleasy try again later.");
+                    },
+                    complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+                        button.attr("disabled", false);  // ボタンを再び enableにする
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <form class="form-horizontal">
+            <input id="userid" type="text" value="user123456"/>
+            <input id="keyid" type="text" value="KA00001"/>
+            <input id="onetimekey" type="text" value="FKEKLV51HD7HDYE589FV"/>
+            <input id="drm_key_id" type="text" value="safasdfjkaksldflkasd11111111"/>
+            <button id="update" type="button" onclick="getApi()">更新</button>
+        </form>
+    </body>
+</html>
