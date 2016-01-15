@@ -27,7 +27,10 @@ and open the template in the editor.
                 var param = 'userid=' + $("#userid").val();
                 param += '&keyid=' + $("#keyid").val();
                 param += '&onetimekey=' + $("#onetimekey").val();
-                param += '&drm_key_id=' + $("#drm_key_id").val();
+                param += '&usagetype=' + $("#usagetype").val();
+                param += '&devicetype=' + $("#devicetype").val();
+                param += '&outputquality=' + $("#outputquality").val();
+                param += '&drmkeyid=' + $("#drmkeyid").val();
 
                 // 通信実行
                 $.ajax({
@@ -62,10 +65,64 @@ and open the template in the editor.
     </head>
     <body>
         <form class="form-horizontal">
-            <input id="userid" type="text" value="user123456"/>
-            <input id="keyid" type="text" value="KA00001"/>
-            <input id="onetimekey" type="text" value="FKEKLV51HD7HDYE589FV"/>
-            <input id="drm_key_id" type="text" value="safasdfjkaksldflkasd11111111"/>
+            <table>
+                <tr>
+                    <td>
+                        コンテンツ購入者のユーザID
+                    </td>
+                    <td>
+                        <input id="userid" type="text" value="user123456"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        購入チェック対象のコンテンツ識別子
+                    </td>
+                    <td>
+                        <input id="keyid" type="text" value="CONT00001"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ワンタイムキー
+                    </td>
+                    <td>
+                        <input id="onetimekey" type="text" value="FKEKLV51HD7HDYE589FV"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        配信種別
+                    </td>
+                    <td>
+                        <input id="usagetype" type="text" value="stream"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        再生端末タイプ
+                    </td>
+                    <td>
+                        <input id="devicetype" type="text" value="PC"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        映像品質
+                    </td>
+                    <td>
+                        <input id="outputquality" type="text" value="HD"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        UUIDの形態のDRM KEY ID
+                    </td>
+                    <td>
+                        <input id="drmkeyid" type="text" value="EDEF8BA9-79D6-4ACE-A3C8-27DCD51D21ED"/>
+                    </td>
+                </tr>
+            </table>
             <button id="update" type="button" onclick="getApi()">更新</button>
         </form>
     </body>
