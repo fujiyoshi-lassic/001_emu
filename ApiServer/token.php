@@ -40,6 +40,11 @@ $obj = json_decode($json_string);
 include_once '../ViewingServer/lib/innerClass.php';
 $location = 'http://localhost/ViewingServer/SoapServer.php';  // サーバーURL
 $uri = 'http://localhost/ViewingServer/';
+
+// java用
+//$location = 'http://localhost:8084/services/PurchaseInfo?wsdl';  // サーバーURL
+//$uri = 'http://localhost:8084/services/';
+
 try {
     $client = new SoapClient(null, array(
         'location' => $location,
@@ -52,9 +57,11 @@ try {
     $soap->userId = 'userId';
     $soap->keyId = 'keyId';
     $result = $client->GetPurchaseInfo($soap);
-    //print_r($result);
+    print("--------------------------------");
+    print_r($result);
+    print("--------------------------------");
 }     catch (Exception $e) {
-    
+    print($e);
 }
 // </editor-fold>
 

@@ -6,8 +6,8 @@ include_once './lib/innerClass.php';
  * and open the template in the editor.
  */
 
-$location = 'http://localhost/ViewingServer/SoapServer.php';  // サーバーURL
-$uri = 'http://localhost/ViewingServer/';
+$location = 'http://view-sv/ViewingServer/SoapServer.php';  // サーバーURL
+$uri = 'http://view-sv/ViewingServer/';
 
 try {
   $client = new SoapClient(null,array(
