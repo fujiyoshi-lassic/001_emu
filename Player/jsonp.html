@@ -15,39 +15,33 @@ and open the template in the editor.
                 // 多重送信を防ぐため通信完了までボタンをdisableにする
                 var button = $(this);
                 button.attr("disabled", true);
-
-                // 各フィールドから値を取得してJSONデータを作成
-//                var data = {
-//                    userid     :$("#userid").val(),
-//                    keyid      :$("#keyid").val(),
-//                    onetimekey :$("#onetimekey").val(),
-//                    drm_key_id :$("#drm_key_id").val(),
-//                };
-
-                var param = 'userId=' + $("#userId").val();
-                param += '&keyId=' + $("#keyId").val();
-                param += '&oneTimeKey=' + $("#oneTimeKey").val();
-                param += '&usageType=' + $("#usageType").val();
-                param += '&deviceType=' + $("#deviceType").val();
-                param += '&outputQuality=' + $("#outputQuality").val();
-                param += '&drmKeyId=' + $("#drmKeyId").val();
+                
+                var param = 'userid=' + $("#userid").val();
+                param += '&keyid=' + $("#keyid").val();
+                param += '&onetimekey=' + $("#onetimekey").val();
+                param += '&usagetype=' + $("#usagetype").val();
+                param += '&devicetype=' + $("#devicetype").val();
+                param += '&outputquality=' + $("#outputquality").val();
+                param += '&drmkeyid=' + $("#drmkeyid").val();
 
                 // 通信実行
                 $.ajax({
-                    type:"GET",                                                // method = "POST"
+                    type:"post",                                                // method = "POST"
                     //url:"http://localhost:8084/ApiServer/webresources/generic", // POST送信先のURL
                     //url:"http://api-sv/ApiServer/token.php",                    // POST送信先のURL
-                    url:"http://api-sv:8084/ApiServer/webresources/Api/v1",
+                    url:"http://api-sv:8084/ApiServer/webresources/generic",
                     data:param,                                  // JSONデータ本体
                     contentType: 'application/json',                            // リクエストの Content-Type
                     dataType: "jsonp",                                           // レスポンスをJSONとしてパースする
+                    //jsonpCallback:'tokenData',
                     success: function(json_data) {                             // 200 OK時
-                        alert('returnCd=[' + json_data.returnCd + ']\n'
-                            + 'tokenInfo=[' + json_data.tokenInfo + ']\n'
-                            + 'productType=[' + json_data.productType + ']\n'
-                            + 'beginDate=[' + json_data.beginDate + ']\n'
-                            + 'expirationDate=[' + json_data.expirationDate + ']\n'
-                            + 'messageText=[' + json_data.messageText + ']\n'
+                        
+                        alert(json_data.returnCd + '\n'
+                            + json_data.tokenInfo + '\n'
+                            + json_data.usageType + '\n'
+                            + json_data.beginDate + '\n'
+                            + json_data.expirationDate + '\n'
+                            + json_data.messageText + '\n'
                         );
                     },
                     error: function(json_data) {         // HTTPエラー時
@@ -70,7 +64,7 @@ and open the template in the editor.
                         コンテンツ購入者のユーザID
                     </td>
                     <td>
-                        <input id="userId" type="text" value="999999999999999999999999999999"/>
+                        <input id="userid" type="text" value="user123456"/>
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +72,7 @@ and open the template in the editor.
                         購入チェック対象のコンテンツ識別子
                     </td>
                     <td>
-                        <input id="keyId" type="text" value="CONT00001"/>
+                        <input id="keyid" type="text" value="CONT00001"/>
                     </td>
                 </tr>
                 <tr>
@@ -86,7 +80,7 @@ and open the template in the editor.
                         ワンタイムキー
                     </td>
                     <td>
-                        <input id="oneTimeKey" type="text" value="FKEKLV51HD7HDYE589FV"/>
+                        <input id="onetimekey" type="text" value="FKEKLV51HD7HDYE589FV"/>
                     </td>
                 </tr>
                 <tr>
@@ -94,7 +88,7 @@ and open the template in the editor.
                         配信種別
                     </td>
                     <td>
-                        <input id="usageType" type="text" value="stream"/>
+                        <input id="usagetype" type="text" value="stream"/>
                     </td>
                 </tr>
                 <tr>
@@ -102,7 +96,7 @@ and open the template in the editor.
                         再生端末タイプ
                     </td>
                     <td>
-                        <input id="deviceType" type="text" value="PC"/>
+                        <input id="devicetype" type="text" value="PC"/>
                     </td>
                 </tr>
                 <tr>
@@ -110,7 +104,7 @@ and open the template in the editor.
                         映像品質
                     </td>
                     <td>
-                        <input id="outputQuality" type="text" value="HD"/>
+                        <input id="outputquality" type="text" value="HD"/>
                     </td>
                 </tr>
                 <tr>
@@ -118,7 +112,7 @@ and open the template in the editor.
                         UUIDの形態のDRM KEY ID
                     </td>
                     <td>
-                        <input id="drmKeyId" type="text" value="EDEF8BA9-79D6-4ACE-A3C8-27DCD51D21ED"/>
+                        <input id="drmkeyid" type="text" value="EDEF8BA9-79D6-4ACE-A3C8-27DCD51D21ED"/>
                     </td>
                 </tr>
             </table>

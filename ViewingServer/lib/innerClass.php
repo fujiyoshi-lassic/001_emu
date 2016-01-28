@@ -19,22 +19,22 @@ class purchaseQueryInfo{
      * コンテンツプロバイダID
      * @var String customerId
      */
-    public $customerId = '';
+    public $CustomerId = '';
     /**
      * コンテンツプロバイダパスワード
      * @var String authPath
      */
-    public $authPath   = '';
+    public $AuthPass   = '';
     /**
      * ユーザID
      * @var String userId
      */
-    public $userId     = '';
+    public $UserId     = '';
     /**
      * チェック対象のコンテンツ識別子
      * @var String keyId
      */
-    public $keyId      = '';
+    public $KeyId      = '';
 }
 /**
  * out

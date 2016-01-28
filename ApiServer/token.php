@@ -42,27 +42,65 @@ $location = 'http://localhost/ViewingServer/SoapServer.php';  // サーバーURL
 $uri = 'http://localhost/ViewingServer/';
 
 // java用
-//$location = 'http://localhost:8084/services/PurchaseInfo?wsdl';  // サーバーURL
-//$uri = 'http://localhost:8084/services/';
+$location = 'http://localhost:8084/soapServer/PurchaseInformation?wsdl';  // サーバーURL
+$uri = 'http://localhost:8084/services/';
+$location = 'https://anime.dmkt-sp.jp/animestore/services/PurchaseInformation?wsdl';
+$uri = 'https://anime.dmkt-sp.jp/animestore/services/';
 
-try {
-    $client = new SoapClient(null, array(
-        'location' => $location,
-        'uri' => $uri,
-        'trace' => 1
-    ));
-    $soap = new purchaseQueryInfo();
-    $soap->customerId = 'customerId';
-    $soap->authPath = 'authPath';
-    $soap->userId = 'userId';
-    $soap->keyId = 'keyId';
-    $result = $client->GetPurchaseInfo($soap);
-    print("--------------------------------");
-    print_r($result);
-    print("--------------------------------");
-}     catch (Exception $e) {
+//try {
+//    $client = new SoapClient(null, array(
+//        'location' => $location,
+//        'uri' => $uri,
+//        'trace' => 1
+//    ));
+//    $soap = new PurchaseQueryInfo();
+//    $soap->customerId = 'customerId';
+//    $soap->authPath = 'authPath';
+//    $soap->userId = 'userId';
+//    $soap->keyId = 'keyId';
+//    $result = $client->GetPurchaseInfo($soap);
+//    print("--------------------------------");
+//    print_r($result);
+//    print("--------------------------------");
+//}     catch (Exception $e) {
+//    print($e);
+//}
+try{
+    $client = new SoapClient($location, array('trace' => 1));
+//    $client = new SoapClient(null, array(
+//        'location' => $location,
+//        'uri' => $uri,
+//        'trace' => 2
+//    ));
+//    $soap = new PurchaseQueryInfo();
+//    $soap->CustomerId = 'customerId';
+//    $soap->AuthPass = 'authPath';
+//    $soap->UserId = 'userId';
+//    $soap->KeyId = 'keyId';
+    $so = array(
+        'PurchaseQueryInfo' => array(
+            'CustomerId' => 'CustomerId',
+            'AuthPass' => 'AuthPass',
+            'UserId' => 'UserId',
+            'KeyId' => 'KeyId',
+        )
+    );
+    print('<pre>');
+    var_dump($so);
+    print('<br>---------__getFunctions----------<br>');
+    var_dump($client->__getFunctions());
+    print('<br>---------__getTypes----------<br>');
+    var_dump($client->__getTypes());
+    print('<br>-------------------<br>');
+    $response = $client->__soapCall('GetPurchaseInfo',$so);
+    //$response = $client->GetPurchaseInfo($soap);
+    var_dump($response);
+}catch(Exception $e){
     print($e);
+    $client->__getLastRequest();
 }
+
+
 // </editor-fold>
 
 
